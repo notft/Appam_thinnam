@@ -51,7 +51,7 @@ Run the app.py, python/python3 app.py
 ### Project Documentation
 
 
-# Screenshots (Add at least 3)
+# Screenshots 
 !<img src="assets/upload.png" width="600" height="auto">(Uploads tab)
 *This is the upload tab where we can upload the pic of your appam*
 
