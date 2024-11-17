@@ -3,79 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appam Thinnam, Kuzhiyum Ennam!</title>
+    <title>Appam-azing Hole Counter! 🕳️</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
-    <div class="container px-4 py-8 mx-auto">
-        <h1 class="mb-8 text-4xl font-bold text-center text-gray-800">Appam Hole Counter</h1>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ... [Previous styles remain the same] ... */
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #fdfdfd;
+            background-image: 
+                radial-gradient(#f9d1a0 2px, transparent 2px),
+                radial-gradient(#f9d1a0 2px, transparent 2px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
 
+        .gradient-border {
+            position: relative;
+            border-radius: 20px;
+            background: white;
+        }
+
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            top: -2px; right: -2px; bottom: -2px; left: -2px;
+            z-index: -1;
+            border-radius: 22px;
+            background: linear-gradient(45deg, #ffa600, #ff7900, #ff5400);
+        }
+
+        .appam-bg {
+            background: linear-gradient(45deg, #fff9f0, #fff5e6);
+        }
+
+        .hole-counter {
+            font-size: 64px;
+            background: linear-gradient(45deg, #ff7900, #ff5400);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .preview-area {
+            min-height: 200px;
+            background: repeating-linear-gradient(
+                45deg,
+                #f8f8f8 0px,
+                #f8f8f8 10px,
+                #f3f3f3 10px,
+                #f3f3f3 20px
+            );
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4">
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <div class="mb-4 inline-block float-animation">
+                <span class="text-4xl">🥞</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-2 text-orange-900">
+                Appam-azing Hole Counter!
+            </h1>
+            <p class="text-orange-700 text-lg md:text-xl">
+                Let's see how lacy your appam is! 🕳️
+            </p>
+        </header>
+
+        <!-- Flash Messages -->
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <div class="p-4 mb-4 border-l-4 {% if category == 'success' %}text-green-700 bg-green-100 border-green-500{% else %}text-red-700 bg-red-100 border-red-500{% endif %}" role="alert">
+                    <div class="p-4 mb-4 rounded-lg {% if category == 'success' %}bg-green-100 text-green-700 border-green-500{% else %}bg-red-100 text-red-700 border-red-500{% endif %}" role="alert">
                         {{ message }}
                     </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
 
-        <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-            <div class="p-6 bg-white rounded-lg shadow-lg">
-                <h2 class="mb-4 text-2xl font-semibold">Upload Your Appam</h2>
-                <form method="POST" enctype="multipart/form-data" class="space-y-4">
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Upload Section -->
+            <div class="gradient-border p-6 md:p-8">
+                <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                    <!-- Name Input -->
                     <div>
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-700">Your Name</label>
-                        <input type="text" name="name" id="name" required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        <label for="name" class="block text-orange-800 font-medium mb-2">Your Name</label>
+                        <input type="text" 
+                               id="name"
+                               name="name"
+                               required
+                               class="w-full px-4 py-3 rounded-lg border-2 border-orange-200 focus:border-orange-400 focus:ring focus:ring-orange-200 focus:ring-opacity-50"
+                               placeholder="Enter your name">
                     </div>
-                    <div>
-                        <label for="file" class="block mb-2 text-sm font-medium text-gray-700">Appam Image</label>
-                        <input type="file" name="file" id="file" accept=".png,.jpg,.jpeg" required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+
+                    <!-- File Upload Area -->
+                    <div class="preview-area rounded-xl p-4 text-center relative">
+                        <input type="file" 
+                               id="file" 
+                               name="file" 
+                               accept=".png,.jpg,.jpeg" 
+                               required
+                               class="hidden" 
+                               onchange="previewImage(this)">
+                        <label for="file" class="cursor-pointer block">
+                            <div id="uploadPrompt" class="p-8">
+                                <div class="text-6xl mb-4">📸</div>
+                                <h3 class="text-xl font-semibold text-orange-800 mb-2">Drop your Appam here!</h3>
+                                <p class="text-orange-600">or click to upload</p>
+                            </div>
+                            <img id="preview" class="hidden max-h-[400px] mx-auto rounded-lg" alt="Appam preview">
+                        </label>
                     </div>
-                    <button type="submit" class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">
-                        Analyze Appam
+
+                    <!-- Submit Button -->
+                    <button type="submit" 
+                            class="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-3 px-6 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98]">
+                        Analyze Appam! 🔍
                     </button>
                 </form>
 
+                <!-- Results Section -->
                 {% if last_analysis %}
-                    <div class="mt-6">
-                        <h3 class="mb-4 text-xl font-semibold">Latest Analysis</h3>
-                        <p class="mb-4 text-lg">Number of holes detected: {{ last_holes }}</p>
-                        
-                        <div class="space-y-6">
-                            <div>
-                                <h4 class="mb-2 text-lg font-medium">Processing Steps</h4>
-                                <img src="{{ url_for('static', filename=last_steps) }}" alt="Processing steps" class="w-full rounded-lg shadow">
-                            </div>
-                            
-                            <div>
-                                <h4 class="mb-2 text-lg font-medium">Final Detection</h4>
-                                <img src="{{ url_for('static', filename=last_analysis) }}" alt="Final detection" class="w-full rounded-lg shadow">
-                            </div>
+                <div class="mt-8 p-6 appam-bg rounded-xl">
+                    <div class="text-center mb-6">
+                        <div class="hole-counter font-bold">{{ last_holes }}</div>
+                        <div class="text-orange-700 text-xl">Holes Found!</div>
+                    </div>
+
+                    <!-- Image Results -->
+                    <div class="space-y-6">
+                        <!-- Original Image -->
+                        <div class="bg-white p-4 rounded-lg shadow-md">
+                            <h4 class="font-semibold text-orange-800 mb-3">Your Appam</h4>
+                            <img src="{{ url_for('static', filename=original_image) }}" 
+                                 class="w-full rounded-lg" alt="Original appam">
+                        </div>
+
+                        <!-- Binary Image -->
+                        <div class="bg-white p-4 rounded-lg shadow-md">
+                            <h4 class="font-semibold text-orange-800 mb-3">Binary Image</h4>
+                            <img src="{{ url_for('static', filename=binary_image) }}" 
+                                 class="w-full rounded-lg" alt="Binary image">
+                        </div>
+
+                        <!-- Processing Steps -->
+                        <div class="bg-white p-4 rounded-lg shadow-md">
+                            <h4 class="font-semibold text-orange-800 mb-3">Processing Steps</h4>
+                            <img src="{{ url_for('static', filename=last_steps) }}" 
+                                 class="w-full rounded-lg" alt="Processing steps">
+                        </div>
+
+                        <!-- Final Detection -->
+                        <div class="bg-white p-4 rounded-lg shadow-md">
+                            <h4 class="font-semibold text-orange-800 mb-3">Final Detection</h4>
+                            <img src="{{ url_for('static', filename=last_analysis) }}" 
+                                 class="w-full rounded-lg" alt="Final detection">
                         </div>
                     </div>
+                </div>
                 {% endif %}
             </div>
 
-            <div class="p-6 bg-white rounded-lg shadow-lg">
-                <h2 class="mb-4 text-2xl font-semibold">Leaderboard</h2>
+            <!-- Leaderboard Section -->
+            <div class="gradient-border p-6 md:p-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-orange-900">Top Appam Makers</h2>
+                    <span class="text-3xl">🏆</span>
+                </div>
+
                 <div class="overflow-x-auto">
-                    <table class="w-full table-auto">
+                    <table class="w-full">
                         <thead>
-                            <tr class="text-left bg-gray-50">
-                                <th class="p-2">Rank</th>
-                                <th class="p-2">Name</th>
-                                <th class="p-2">Holes</th>
-                                <th class="p-2">Date</th>
+                            <tr class="border-b-2 border-orange-200">
+                                <th class="py-4 px-4 text-left text-orange-800">Rank</th>
+                                <th class="py-4 px-4 text-left text-orange-800">Name</th>
+                                <th class="py-4 px-4 text-left text-orange-800">Holes</th>
+                                <th class="py-4 px-4 text-left text-orange-800">Date</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for leader in leaderboard %}
-                            <tr class="border-t">
-                                <td class="p-2">{{ loop.index }}</td>
-                                <td class="p-2">{{ leader[0] }}</td>
-                                <td class="p-2">{{ leader[1] }}</td>
-                                <td class="p-2">{{ leader[4]|format_date }}</td>
+                            <tr class="border-b border-orange-100 hover:bg-orange-50 transition-colors">
+                                <td class="py-4 px-4">
+                                    {% if loop.index == 1 %}
+                                        <span class="text-2xl">🥇</span>
+                                    {% elif loop.index == 2 %}
+                                        <span class="text-2xl">🥈</span>
+                                    {% elif loop.index == 3 %}
+                                        <span class="text-2xl">🥉</span>
+                                    {% else %}
+                                        <span class="text-orange-600 font-medium">#{{ loop.index }}</span>
+                                    {% endif %}
+                                </td>
+                                <td class="py-4 px-4 font-medium text-orange-900">{{ leader[0] }}</td>
+                                <td class="py-4 px-4">
+                                    <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full">
+                                        {{ leader[1] }} holes
+                                    </span>
+                                </td>
+                                <td class="py-4 px-4 text-orange-700">{{ leader[4]|format_date }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -84,5 +225,63 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function previewImage(input) {
+            const preview = document.getElementById('preview');
+            const uploadPrompt = document.getElementById('uploadPrompt');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    uploadPrompt.classList.add('hidden');
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Drag and drop functionality
+        const dropArea = document.querySelector('.preview-area');
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+            dropArea.classList.add('bg-orange-50');
+        }
+
+        function unhighlight(e) {
+            dropArea.classList.remove('bg-orange-50');
+        }
+
+        dropArea.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            const fileInput = document.getElementById('file');
+            
+            fileInput.files = files;
+            previewImage(fileInput);
+        }
+    </script>
 </body>
 </html>
