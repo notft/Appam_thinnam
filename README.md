@@ -54,32 +54,24 @@ Run the app.py, python/python3 app.py
 
 
 # Screenshots 
-<img src="assets/upload.png" width="600" height="auto">
-
-(Uploads tab)
+!<img src="assets/upload.png" width="600" height="auto">(Uploads tab)
 *This is the upload tab where we can upload the pic of your appam*
 
-<img src="assets/analysis.png" width="600" height="auto">
-
+!<img src="assets/analysis.png" width="600" height="auto">
 (Analysis bar where matsplotlab is used to create the diagrams)
 *Here you can see how the image is analyzed, Output is from matplotlib*
 
-<img src="assets/Leaderboard.png" width="600" height="auto">
-
-(Leaderboard corner of the page)
+!<img src="assets/Leaderboard.png" width="600" height="auto">(Leaderboard corner of the page)
 *here we display the leaderboard for people to hate us*
 
 # Diagrams
-<img src="assets/Untitled.png" width="1000" height="auto">
-
-(Workflow is very userfriendly.. and understandable from the documentation)
+!<img src="assets/Untitled.png" width="1000" height="auto">(Workflow is very userfriendly.. and understandable from the documentation)
 *Um... Sorry about that.*
 
 
 ### Project Demo
 # Video
 [https://drive.google.com/file/d/1vDTG0XgisqnnUkYY-zpSLHs44Lm5zkQ7/view?usp=sharing](Video LINK!)
-
 *It may not be much, but its honest effort*
 <img src="assets/meme.png" width="auto" height="auto">
 
